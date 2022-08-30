@@ -14,20 +14,25 @@ class MilestonesController < ApplicationController
     end
 
     def create 
-        #binding.pry
         milestone = Milestone.new 
         milestone.name = params[:name]
         milestone.description = params[:description]
-        milestone.lead_time = params[:lead_time]
         milestone.project_id = params[:project_id]
-        #binding.pry
+        milestone.due_date = milestone.project.due_date - params[:lead_time].to_i
         milestone.save
         render json: milestone
     end
 
     def project_index 
-        #binding.pry
         milestones = Milestone.where(project_id: params[:id])
+
         render json: milestones
+    end
+
+    def delete 
+        #binding.pry
+        milestone = Milestone.find_by(id: params[:id])
+        milestone.destroy
+
     end
 end

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
     def show 
+        #binding.pry
         user = User.find_by(id: params[:id])
         if user 
             render json: user
@@ -15,10 +16,18 @@ class UsersController < ApplicationController
 
     def create 
         #binding.pry
-        user = User.find_or_create_by(email: params[:email])
-        user.name = params[:name]
-        user.password = params[:password]
-        #binding.pry
-        user.save
+        user = User.find_by(email: params[:email])
+        if user
+            #binding.pry 
+            user_id = user.id
+        else 
+            #binding.pry
+            user = User.new
+            user.email = params[:email]
+            user.name = params[:name]
+            user.save
+        end
     end
+
+    
 end

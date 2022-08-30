@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_173442) do
   create_table "milestones", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "lead_time"
+    t.date "due_date"
     t.integer "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_173442) do
     t.string "name"
     t.string "kind"
     t.date "due_date"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -37,7 +38,6 @@ ActiveRecord::Schema.define(version: 2021_10_30_173442) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
