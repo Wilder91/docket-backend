@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/projects' => 'projects#create'
   post '/users' => 'users#create'
   
+  
   get 'users/:id/milestones' => 'milestones#user_milestones'
   get 'users/:id/projects' => 'projects#user_projects'
   delete 'projects/:id/milestones/:id' => 'milestones#delete'
@@ -14,5 +15,5 @@ Rails.application.routes.draw do
   patch 'projects/:id' => 'projects#update'
   get 'projects/:id/milestones' => 'milestones#project_index'
   post  '/projects/:id/milestones' => 'milestones#create'
- 
+
 end

@@ -1,5 +1,5 @@
-User.create(name: "Kate Godwin", email: "kate@god.win")
-User.create(name: "Mike Wilder", email: "mike@wild.er")
+User.create(email: "kate@god.win", password: "hello")
+User.create(email: "mike@wild.er", password: "hello")
 
 Project.create(due_date: "10/4/2022", name: "Jones Wedding", kind: "wedding invites", user_id: 1)
 Project.create(due_date: "10/5/2023", name: "James Wedding", kind: "wedding invites", user_id: 2)
