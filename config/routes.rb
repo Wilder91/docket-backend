@@ -6,14 +6,16 @@ Rails.application.routes.draw do
 
   post '/projects' => 'projects#create'
   post '/users' => 'users#create'
-  
-  
+  get '/user' => 'users#login'
+ 
   get 'users/:id/milestones' => 'milestones#user_milestones'
   get 'users/:id/projects' => 'projects#user_projects'
-  delete 'projects/:id/milestones/:id' => 'milestones#delete'
+  delete '/milestones/:id' => 'milestones#delete'
   delete '/projects/:id' => 'projects#delete'
   patch 'projects/:id' => 'projects#update'
-  get 'projects/:id/milestones' => 'milestones#project_index'
-  post  '/projects/:id/milestones' => 'milestones#create'
-
+  get '/projects/:id/milestones' => 'milestones#project_index'
+  post '/projects/:id/milestones' => 'milestones#create'
+  
+  post  '/milestones' => 'milestones#create'
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

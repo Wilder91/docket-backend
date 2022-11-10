@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
     end 
 
     def index 
-       
+       #binding.pry
         projects = Project.all.sort { |a,b| a.due_date <=> b.due_date } 
         if projects 
             render json: projects, include: :milestones
@@ -22,7 +22,8 @@ class ProjectsController < ApplicationController
         user = User.find_by(email: params[:user])
         project.kind  = params[:kind] 
         project.due_date = params[:date]
-        project.user_id = 1 
+        #binding.pry
+        project.user_id = 2
         project.save
     end
 
@@ -33,9 +34,10 @@ class ProjectsController < ApplicationController
     end
 
     def user_projects 
+
         user = User.find_by(id: params[:id])
         projects = user.projects.all.sort { |a,b| a.due_date <=> b.due_date } 
-    
+   
         render json: projects, include: :milestones
     end
 

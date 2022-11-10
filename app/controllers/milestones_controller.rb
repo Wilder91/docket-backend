@@ -8,14 +8,7 @@ class MilestonesController < ApplicationController
         end 
     end
 
-    def index 
-
-        milestones = Milestone.all.sort { |a,b| a.due_date <=> b.due_date } 
-        render json: milestones
-    end
-
     def create
-        #binding.pry 
         milestone = Milestone.new 
         milestone.name = params[:name]
         milestone.description = params[:description]
@@ -25,8 +18,19 @@ class MilestonesController < ApplicationController
         render json: milestone
     end
 
+
+
+    def index 
+
+        milestones = Milestone.all.sort { |a,b| a.due_date <=> b.due_date } 
+        render json: milestones
+    end
+
+ 
+
     def project_index 
         milestones = Milestone.where(project_id: params[:id])
+  
         m = milestones.all.sort { |a,b| a.due_date <=> b.due_date } 
         render json: m
     end
