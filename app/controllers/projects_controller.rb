@@ -23,7 +23,7 @@ class ProjectsController < ApplicationController
         project.kind  = params[:kind] 
         project.due_date = params[:date]
         #binding.pry
-        project.user_id = 2
+        project.user_id = params[:id]
         project.save
     end
 

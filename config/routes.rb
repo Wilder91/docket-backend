@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :show]
   resources :users, only: [:index, :show]
 
-  post '/projects' => 'projects#create'
+  post '/users/:id/projects' => 'projects#create'
   post '/users' => 'users#create'
   get '/user' => 'users#login'
  

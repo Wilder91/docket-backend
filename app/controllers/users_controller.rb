@@ -23,7 +23,8 @@ class UsersController < ApplicationController
       else 
           user = User.new
           user.email = params[:email]
-          user.name = params[:name]
+          user.password = params[:password]
+          #binding.pry
           user.save
       end
   end
