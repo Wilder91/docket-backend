@@ -14,6 +14,8 @@ class MilestonesController < ApplicationController
         milestone.description = params[:description]
         milestone.project_id = params[:project_id]
         milestone.due_date = params[:date]
+        #milestone.user = Project.all.find_by(id: params[:id]).user
+        #binding.pry
         milestone.save!
         render json: milestone
     end
@@ -24,6 +26,13 @@ class MilestonesController < ApplicationController
 
         milestones = Milestone.all.sort { |a,b| a.due_date <=> b.due_date } 
         render json: milestones
+    end
+
+    def user_index 
+        #binding.pry
+        user = User.find_by(id: params[:id])
+        #binding.pry
+        render json: user.milestones.sort { |a,b| a.due_date <=> b.due_date }
     end
 
  

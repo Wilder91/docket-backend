@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   post '/users/:id/projects' => 'projects#create'
   post '/users' => 'users#create'
   get '/user' => 'users#login'
- 
-  get 'users/:id/milestones' => 'milestones#user_milestones'
+
+  get '/users/:id/milestones' => 'milestones#user_index'
   get 'users/:id/projects' => 'projects#user_projects'
   delete '/milestones/:id' => 'milestones#delete'
   delete '/projects/:id' => 'projects#delete'
