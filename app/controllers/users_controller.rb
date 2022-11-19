@@ -1,22 +1,21 @@
 class UsersController < ApplicationController
 
   def show 
+    #binding.pry
       user = User.find_by(id: params[:id])
-      params[:id] = localStorage.user_id
+      #binding.pry
       if user 
           render json: user
       else 
          render json: {message: "We Couldn't Find a User With Those Credentials"}
       end 
+      params[:id] = localStorage.user_id
   end 
 
-  def login 
-    binding.pry
-
-  end
+ 
 
   def create 
-      #binding.pry
+     binding.pry
       user = User.find_by(email: params[:email])
       if user 
           user_id = user.id
@@ -34,6 +33,7 @@ class UsersController < ApplicationController
   
 
   def index 
+    #binding.pry
       users = User.all
       render json: users
   end

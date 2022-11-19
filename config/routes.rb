@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   resources :projects, only: [:index, :show]
   resources :users, only: [:index, :show]
 
-  post '/users/:id/projects' => 'projects#create'
+  
   post '/users' => 'users#create'
-  get '/user' => 'users#login'
+  get '/user' => 'users#login2'
  
   get 'users/:id/milestones' => 'milestones#user_milestones'
   get 'users/:id/projects' => 'projects#user_projects'
+  post '/users/:id/projects' => 'projects#create'
   delete '/milestones/:id' => 'milestones#delete'
   delete '/projects/:id' => 'projects#delete'
   patch 'projects/:id' => 'projects#update'

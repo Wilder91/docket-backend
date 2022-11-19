@@ -24,7 +24,9 @@ class ProjectsController < ApplicationController
         project.due_date = params[:date]
         #binding.pry
         project.user_id = params[:id]
+        
         project.save
+        render json: project
     end
 
     def delete 
@@ -34,11 +36,15 @@ class ProjectsController < ApplicationController
     end
 
     def user_projects 
-
+        #binding.pry
         user = User.find_by(id: params[:id])
-        projects = user.projects.all.sort { |a,b| a.due_date <=> b.due_date } 
-   
-        render json: projects, include: :milestones
+        
+        if user
+            projects = user.projects.all.sort { |a,b| a.due_date <=> b.due_date } 
+            render json: projects, include: :milestones
+        else 
+            render json: {message: "We Couldn't Find a User With Those Credentials"}
+         end 
     end
 
     private 
