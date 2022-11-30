@@ -1,10 +1,11 @@
 class UsersController < ApplicationController
 
   def show 
+    #binding.pry
       user = User.find_by(id: params[:id])
-      params[:id] = localStorage.user_id
+      
       if user 
-          render json: user
+          render json: user, :include => { :projects => {:include =>:milestones} }
       else 
          render json: {message: "We Couldn't Find a User With Those Credentials"}
       end 
@@ -35,7 +36,7 @@ class UsersController < ApplicationController
 
   def index 
       users = User.all
-      render json: users
+      render json: users, :include => { :projects => {:include =>:milestones}}
   end
 
   private

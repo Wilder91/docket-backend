@@ -38,10 +38,16 @@ class MilestonesController < ApplicationController
  
 
     def project_index 
+        #binding.pry
         milestones = Milestone.where(project_id: params[:id])
-  
+        
         m = milestones.all.sort { |a,b| a.due_date <=> b.due_date } 
-        render json: m
+        #binding.pry
+        if m.length == 0
+            render json: {message: "This Project Doesn't Have any Milestones yet"}
+        else
+            render json: m
+        end
     end
 
     def delete 

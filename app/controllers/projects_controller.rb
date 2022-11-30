@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
         if project 
             render json: project, include: :milestones
         else 
-           render json:  "We Couldn't Find A Project With Those Credentials"
+           render json:  {message: "We Couldn't Find A Project With Those Credentials"}
         end 
     end 
 
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
         #binding.pry
         user = User.find_by(id: params[:id])
         projects = user.projects.all.sort { |a,b| a.due_date <=> b.due_date } 
-   
+        
         render json: projects, include: :milestones
     end
 
