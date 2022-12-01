@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
 
   def show 
-    #binding.pry
-      user = User.find_by(id: params[:id])
-      
+      user = User.find_by(id: params[:id]) 
       if user 
           render json: user, :include => { :projects => {:include =>:milestones} }
       else 
@@ -12,12 +10,11 @@ class UsersController < ApplicationController
   end 
 
   def login 
-    binding.pry
+ 
 
   end
 
   def create 
-      #binding.pry
       user = User.find_by(email: params[:email])
       if user 
           user_id = user.id
@@ -25,7 +22,6 @@ class UsersController < ApplicationController
           user = User.new
           user.email = params[:email]
           user.password = params[:password]
-          #binding.pry
           user.save
       end
   end
