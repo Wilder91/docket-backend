@@ -9,6 +9,7 @@ class MilestonesController < ApplicationController
     end
 
     def create
+        #binding.pry
         milestone = Milestone.new 
         milestone.name = params[:name]
         milestone.description = params[:description]
