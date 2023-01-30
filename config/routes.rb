@@ -2,13 +2,17 @@ Rails.application.routes.draw do
   resources :templates
   resources :milestones, only: [:show, :index]
   resources :projects, only: [:index, :show]
-  resources :users, only: [:index, :show]
+  resources :users, param: :id
+  post '/auth/login' => 'authentication#login'
+  get '/*a' => 'application#not_found'
 
   post '/users/:id/projects' => 'projects#create'
   post '/users' => 'users#create'
-  get '/home' => 'users#login'
+  get '/home' => 'authentication#login'
  
-
+  get '/users' => 'users#index'
+  get '/users/:id' => "users#show"
+  
   get '/users/:id/milestones' => 'milestones#user_index'
   get 'users/:id/projects' => 'projects#user_projects'
   delete '/milestones/:id' => 'milestones#delete'

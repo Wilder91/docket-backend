@@ -25,6 +25,7 @@ gem 'bcrypt'
 gem 'jwt'
 gem 'rack-cors'
 
+
 gem 'pry'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
