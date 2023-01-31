@@ -27,6 +27,13 @@ class ProjectsController < ApplicationController
         render json: project
     end
 
+    def update 
+        project = Project.find_by(id: params[:id])
+        project.update_attributes(project_params)
+        render json: project
+
+    end
+
     def delete 
         project = Project.find_by(id: params[:id])
         project.destroy

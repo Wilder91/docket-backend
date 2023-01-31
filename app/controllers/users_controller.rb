@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     def index
       #binding.pry
       @users = User.all
-      render json: @users, status: :ok
+      render json: @users, include: [:projects, :milestones], status: :ok
     end
   
     # GET /users/{username}
