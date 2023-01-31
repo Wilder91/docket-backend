@@ -1,6 +1,6 @@
 
 class AuthenticationController < ApplicationController
-   
+  before_action :authorize_request, except: :login
   def login
 
     @user = User.find_by(email: params[:email])
@@ -14,7 +14,7 @@ class AuthenticationController < ApplicationController
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
     end
-    #binding.pry
+  
   end
 
   private
