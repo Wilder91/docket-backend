@@ -6,7 +6,13 @@ Rails.application.routes.draw do
   post '/auth/login' => 'authentication#login'
   get '/*a' => 'application#not_found'
 
+  get 'users/:id/projects' => 'projects#user_projects'
   post '/users/:id/projects' => 'projects#create'
+
+
+  delete '/projects/:id' => 'projects#delete'
+  patch '/projects/:id' => 'projects#update'
+
   post '/users' => 'users#create'
   get '/home' => 'authentication#login'
  
@@ -14,10 +20,9 @@ Rails.application.routes.draw do
   get '/users/:id' => "users#show"
   
   get '/users/:id/milestones' => 'milestones#user_index'
-  get 'users/:id/projects' => 'projects#user_projects'
+ 
   delete '/milestones/:id' => 'milestones#delete'
-  delete '/projects/:id' => 'projects#delete'
-  patch 'projects/:id' => 'projects#update'
+  
   get '/projects/:id/milestones' => 'milestones#project_index'
   post 'users/:id/projects/:id/milestones' => 'milestones#create'
   

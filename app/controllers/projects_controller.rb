@@ -29,7 +29,9 @@ class ProjectsController < ApplicationController
 
     def update 
         project = Project.find_by(id: params[:id])
-        project.update_attributes(project_params)
+        #binding.pry
+        project.assign_attributes(name: params[:name], kind: params[:kind], due_date: params[:date])
+        project.save
         render json: project
 
     end
@@ -51,7 +53,7 @@ class ProjectsController < ApplicationController
     private 
 
     def project_params 
-        params.require(:project).permit(:project_name, :kind, :due_date, :user_id)
+        params.require(:project).permit(:name, :kind, :date, :user_id)
  
     end
 
