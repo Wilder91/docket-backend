@@ -5,19 +5,22 @@ Rails.application.routes.draw do
   resources :users, param: :id
   post '/auth/login' => 'authentication#login'
   get '/*a' => 'application#not_found'
-
+  get 'users/:email' => 'users#show'
   get 'users/:id/projects' => 'projects#user_projects'
+
   post '/users/:id/projects' => 'projects#create'
-
-
+  get 'users/:id/templates' => 'templates#user_index'
+  patch '/projects/:id/complete' => 'projects#toggle_complete'
+  delete '/templates/:id' => 'templates#delete'
   delete '/projects/:id' => 'projects#delete'
   patch '/projects/:id' => 'projects#update'
+  patch '/milestones/:id' => 'milestones#update'
 
   post '/users' => 'users#create'
   get '/home' => 'authentication#login'
  
   get '/users' => 'users#index'
-  get '/users/:id' => "users#show"
+
   
   get '/users/:id/milestones' => 'milestones#user_index'
  

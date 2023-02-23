@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
-    before_action :authorize_request, except: :create
+    before_action :authorize_request, except: [:create, :index]
     before_action :find_user, except: %i[create index]
   
     # GET /users
     def index
       #binding.pry
       @users = User.all
-      render json: @users, include: [:projects, :milestones], status: :ok
+      #binding.pry
+      render json: @users, include: [:projects, :milestones, :templates], status: :ok
     end
   
     # GET /users/{username}
@@ -18,8 +19,11 @@ class UsersController < ApplicationController
     end
   
     # POST /users
-    def create
-      @user = User.find_or_create_by(user: user_params)
+    def create 
+      #binding.pry
+      @user = User.find_or_create_by(name: user_params[:name])
+      @user.email = user_params[:email]
+      @user.password = user_params[:password]
       if @user.save
         render json: @user, status: :created
       else

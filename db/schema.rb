@@ -16,6 +16,8 @@ ActiveRecord::Schema.define(version: 2021_10_30_173442) do
     t.string "name"
     t.text "description"
     t.date "due_date"
+    t.integer "lead_time"
+    t.boolean "complete", default: false
     t.integer "project_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -25,12 +27,17 @@ ActiveRecord::Schema.define(version: 2021_10_30_173442) do
     t.string "name"
     t.string "kind"
     t.date "due_date"
+    t.boolean "complete", default: false
+    t.boolean "template", default: false, null: false
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "templates", force: :cascade do |t|
+    t.string "name"
+    t.json "milestones"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
