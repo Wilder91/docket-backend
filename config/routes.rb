@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   delete '/templates/:id' => 'templates#delete'
   delete '/projects/:id' => 'projects#delete'
   patch '/projects/:id' => 'projects#update'
+  patch '/milestones/:id/complete' => 'milestones#toggle_complete'
   patch '/milestones/:id' => 'milestones#update'
-
+  post '/users/:id/templates' => 'templates#create'
   post '/users' => 'users#create'
   get '/home' => 'authentication#login'
  

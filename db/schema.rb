@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_10_30_173442) do
     t.string "kind"
     t.date "due_date"
     t.boolean "complete", default: false
-    t.boolean "template", default: false, null: false
+    t.boolean "template", default: false
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

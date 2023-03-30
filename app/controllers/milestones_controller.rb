@@ -47,12 +47,22 @@ class MilestonesController < ApplicationController
 
     def update 
         #binding.pry
+        milestone = Milestone.find_by(id: params[:id])
+        milestone.assign_attributes(name: params[:name], description: params[:description], due_date: params[:date])
+        milestone.save
+       
+        render json: project
+
+    end
+    def toggle_complete 
+        
         milestone = Milestone.find_by(id: params["id"])
         milestone.complete = params["complete"]
         milestone.save
     end
 
     def delete 
+        #binding.pry
         milestone = Milestone.find_by(id: params[:id])
         milestone.destroy
     end

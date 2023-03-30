@@ -5,7 +5,7 @@ class CreateProjects < ActiveRecord::Migration[6.1]
       t.string :kind 
       t.date :due_date
       t.boolean :complete, default: false
-      t.boolean :template, default: false, null: false
+      t.boolean :template, default: false
       t.integer :user_id
       t.timestamps
     end
