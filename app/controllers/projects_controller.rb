@@ -22,13 +22,14 @@ class ProjectsController < ApplicationController
       project = Project.new(project_params)
       if project.save
         create_from_template(project, params[:template])
-        render json: project
+        render json: project, include: :milestones
       else 
         render json: { errors: project.errors.full_messages }, status: :unprocessable_entity
       end
     end
   
     def update 
+      #binding.pry
       if @project.update(project_params)
         if @project.template?
           Template.create(name: @project.kind, milestones: @project.milestones, user_id: @project.user.id)
@@ -40,8 +41,11 @@ class ProjectsController < ApplicationController
     end
   
     def delete 
-        binding.pry
-      @project.destroy
+        #binding.pry
+        project = Project.find_by(id: params["id"])
+        project.destroy
+      
+     
     end
   
     def user_projects 
@@ -70,12 +74,14 @@ class ProjectsController < ApplicationController
   
       template.milestones.each do |m|
         project.milestones.create(
+          
           name: m["name"],
-          lead_time: m["lead_time"],
+          lead_time: m["leadTime"],
           complete: false,
           due_date: project.due_date - m["leadTime"].to_i
         )
       end 
+      #binding.pry
       project.kind = template.name
       project.save
     end

@@ -3,12 +3,9 @@ class TemplatesController < ApplicationController
     def index 
         templates = Template.all 
         render json: templates
-
     end
 
     def create
-       #binding.pry
-     
        template_params = {
         name: params[:name],
         user_id: params[:id],
@@ -18,7 +15,9 @@ class TemplatesController < ApplicationController
       params[:milestones].each do |milestone|
         template_params[:milestones] << {
           name: milestone[:name],
-          leadTime: milestone[:leadTime]
+          leadTime: milestone[:leadTime],
+          complete: false
+          binding.pry
         }
       end
     
