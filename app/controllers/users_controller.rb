@@ -1,50 +1,50 @@
 class UsersController < ApplicationController
+  before_action :authorize_request, except: [:create, :index]
+  before_action :find_user, except: %i[create index]
 
-  def show 
-      user = User.find_by(id: params[:id])
-      params[:id] = localStorage.user_id
-      if user 
-          render json: user
-      else 
-         render json: {message: "We Couldn't Find a User With Those Credentials"}
-      end 
-  end 
-
-  def login 
-    binding.pry
-
+  # GET /users
+  def index
+    #binding.pry
+    @users = User.all
+    render json: @users, include: [:projects, :milestones, :templates], status: :ok
   end
 
-  def create 
-      #binding.pry
-      user = User.find_by(email: params[:email])
-      if user 
-          user_id = user.id
-      else 
-          user = User.new
-          user.email = params[:email]
-          user.password = params[:password]
-          #binding.pry
-          user.save
-      end
+  # GET /users/{id}
+  def show
+    render json: @user, include: [:projects, :milestones, :templates], status: :ok
   end
 
-  
+  # POST /users
+  def create
+    
+    user = User.new(name: params["name"], email: params["email"], password: params["password"])
+    if user.save
+      render json: user, status: :created
+    else
+      render json: { errors: "Validation failed: #{user.errors.full_messages.join(', ')}" },
+             status: :unprocessable_entity
+    end
+  end
 
-  
+  # PUT /users/{id}
+  def update
+    #binding.pry
+    unless @user.update(user_params)
+      render json: { errors: "Validation failed: #{user.errors.full_messages.join(', ')}" },
+             status: :unprocessable_entity
+    end
+  end
 
-  def index 
-      users = User.all
-      render json: users
+  # DELETE /users/{id}
+  def destroy
+    @user.destroy
   end
 
   private
 
-  def user_params 
-      params.require(:user).permit(:name, :email)
+  def find_user
+    @user = User.find_by!(id: params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: 'User not found' }, status: :not_found
   end
-
-
-
-  
 end
