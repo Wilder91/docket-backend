@@ -14,8 +14,9 @@ class MilestonesController < ApplicationController
         milestone.description = params[:description]
         milestone.project_id = params[:project_id]
         milestone.due_date = params[:date]
+        milestone.project_name = params[:project_name]
         milestone.lead_time = (milestone.project.due_date - milestone.due_date).to_i
-        #binding.pry
+        
         milestone.save!
         render json: milestone
     end
@@ -48,10 +49,11 @@ class MilestonesController < ApplicationController
     def update 
         #binding.pry
         milestone = Milestone.find_by(id: params[:id])
-        milestone.assign_attributes(name: params[:name], description: params[:description], due_date: params[:date])
+        milestone.update(name: params["name"], description: params["description"], due_date: params["due_date"], project_name: params["project_name"])
+        
         milestone.save
        
-        render json: project
+        render json: milestone
 
     end
     def toggle_complete 
@@ -64,6 +66,6 @@ class MilestonesController < ApplicationController
     def delete 
         #binding.pry
         milestone = Milestone.find_by(id: params[:id])
-        milestone.destroy
+        milestone.delete
     end
 end

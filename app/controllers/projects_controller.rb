@@ -17,31 +17,28 @@ class ProjectsController < ApplicationController
       project.save
     end
   
-    def create 
-        #binding.pry
+    def create
       project = Project.new(project_params)
+      project.due_date = params[:due_date]
       if project.save
         create_from_template(project, params[:template])
         render json: project, include: :milestones
-      else 
+      else
         render json: { errors: project.errors.full_messages }, status: :unprocessable_entity
       end
     end
-  
-    def update 
-      #binding.pry
+    
+    def update
       if @project.update(project_params)
-        if @project.template?
-          Template.create(name: @project.kind, milestones: @project.milestones, user_id: @project.user.id)
-        end
         render json: @project
       else
         render json: { errors: @project.errors.full_messages }, status: :unprocessable_entity
       end
     end
   
+   
+  
     def delete 
-        #binding.pry
         project = Project.find_by(id: params["id"])
         project.destroy
       
@@ -57,31 +54,38 @@ class ProjectsController < ApplicationController
     private 
   
     def project_params 
-      params.require(:project).permit(:name, :kind, :due_date, :user_id, :template)
+      params.require(:project).permit(:name, :kind, :due_date, :user_id)
     end
   
     def find_project
-      @project = Project.find_by(id: params[:id])
-      render json: { errors: 'Project not found' }, status: :not_found unless @project
+      begin
+        @project = Project.find_by(id: params[:id])
+        unless @project
+          render json: { error: 'Project not found' }, status: :not_found
+        end
+      rescue => e
+        render json: { error: e.message }, status: :internal_server_error
+      end
     end
   
     def create_from_template(project, template_name)
-        #binding.pry
+        
       return unless template_name.present?
   
       template = Template.find_by(name: template_name)
       return unless template
-  
+      
       template.milestones.each do |m|
         project.milestones.create(
           
+
           name: m["name"],
           lead_time: m["leadTime"],
           complete: false,
           due_date: project.due_date - m["leadTime"].to_i
         )
       end 
-      #binding.pry
+      
       project.kind = template.name
       project.save
     end

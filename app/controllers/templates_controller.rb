@@ -17,7 +17,7 @@ class TemplatesController < ApplicationController
           name: milestone[:name],
           leadTime: milestone[:leadTime],
           complete: false
-          binding.pry
+          
         }
       end
     
@@ -31,7 +31,7 @@ class TemplatesController < ApplicationController
     end
 
     def destroy
-        #binding.pry
+        
         template = Template.find_by(id: params[:id])    
         template.destroy
 

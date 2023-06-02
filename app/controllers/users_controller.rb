@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
+    #binding.pry
     @users = User.all
     render json: @users, include: [:projects, :milestones, :templates], status: :ok
   end
@@ -15,9 +16,10 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
-    if @user.save
-      render json: @user, status: :created
+    
+    user = User.new(name: params["name"], email: params["email"], password: params["password"])
+    if user.save
+      render json: user, status: :created
     else
       render json: { errors: "Validation failed: #{user.errors.full_messages.join(', ')}" },
              status: :unprocessable_entity
@@ -26,6 +28,7 @@ class UsersController < ApplicationController
 
   # PUT /users/{id}
   def update
+    #binding.pry
     unless @user.update(user_params)
       render json: { errors: "Validation failed: #{user.errors.full_messages.join(', ')}" },
              status: :unprocessable_entity
