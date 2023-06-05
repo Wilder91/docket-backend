@@ -1,5 +1,5 @@
 User.create!(name: "Kate Godwin", email: "kate@god.win", password: "goodbye")
-User.create!(name: "Mike Wilder", email: "michael@wild.er", password: "goodbye")
+User.create!(name: "Mike Wilder", email: "michael@wil.der", password: "goodbye")
 
 Project.create!(due_date: "10/4/2024", name: "Jones Wedding", kind: "wedding invites", complete: false,  user_id: 1)
 Project.create!(due_date: "10/5/2025", name: "James Wedding", kind: "wedding invites",  complete: false, user_id: 2)
