@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize_request, except: [:create, :index]
+  before_action :authorize_request, except: [:create, :index, :delete]
   before_action :find_user, except: %i[create index]
 
   # GET /users
@@ -36,7 +36,9 @@ class UsersController < ApplicationController
   end
 
   # DELETE /users/{id}
-  def destroy
+  def delete
+    #binding.pry
+    
     @user.destroy
   end
 
