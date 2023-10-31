@@ -11,6 +11,7 @@ get '/home' => 'authentication#login'
 post '/users' => 'users#create'
 get '/users' => 'users#index'
 get 'users/:email' => 'users#show'
+patch '/users/:id' => 'users#update'
 delete '/users/delete/:id' => 'users#delete'
 
 # User Projects

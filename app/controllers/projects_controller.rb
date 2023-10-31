@@ -20,6 +20,7 @@ class ProjectsController < ApplicationController
     def create
       project = Project.new(project_params)
       project.due_date = params[:due_date]
+      #binding.pry
       if project.save
         create_from_template(project, params[:template])
         render json: project, include: :milestones

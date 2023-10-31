@@ -29,12 +29,17 @@ class UsersController < ApplicationController
   # PUT /users/{id}
   def update
     #binding.pry
-    unless @user.update(user_params)
+    @user.name = params['name']
+    @user.email = params['email']
+    if @user.save
+      render json: @user
+    else
       render json: { errors: "Validation failed: #{user.errors.full_messages.join(', ')}" },
              status: :unprocessable_entity
     end
   end
 
+  
   # DELETE /users/{id}
   def delete
     #binding.pry
