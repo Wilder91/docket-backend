@@ -39,8 +39,8 @@ module DueDateApi
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-          origins '*'
-          resource '*', headers: :any, methods: [:get, :post, :delete, :patch]
+        origins 'http://localhost:3001'  # Add the correct origin
+        resource '*', headers: :any, methods: [:get, :post, :put, :delete, :patch]
       end
     end
   end

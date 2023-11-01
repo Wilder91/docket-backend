@@ -29,6 +29,21 @@ class TemplatesController < ApplicationController
         render json: { errors: template.errors.full_messages }, status: :unprocessable_entity
       end
     end
+    
+    def update
+      # Get the template by its ID
+      template = Template.find(params[:id])
+    
+      # Extract the name and milestones from the request parameters
+      name = params[:name]
+      milestones = params[:milestones]
+    
+      # Update the template with the new data
+      template.update(name: name, milestones: milestones)
+    
+      # Respond with a success status and the updated template
+      render json: template
+    end
 
     def destroy
         

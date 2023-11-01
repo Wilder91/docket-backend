@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :templates
+
   resources :milestones, only: [:show, :index]
   resources :projects, only: [:index, :show]
   resources :users, param: :id
@@ -26,6 +26,7 @@ get '/projects/:id/milestones' => 'milestones#project_index'
 get 'users/:id/templates' => 'templates#user_index'
 post '/users/:id/templates' => 'templates#create'
 delete '/templates/:id' => 'templates#delete'
+put '/templates/:id' => 'templates#update'
 
 # User Milestones
 get '/users/:id/milestones' => 'milestones#user_index'

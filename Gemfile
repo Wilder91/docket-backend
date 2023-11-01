@@ -23,7 +23,7 @@ gem 'bumbler'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'bcrypt'
 gem 'jwt'
-gem 'rack-cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rack-mini-profiler', '~> 3.1'
 gem 'appsignal'
 gem 'pry'

@@ -57,10 +57,12 @@ class MilestonesController < ApplicationController
 
     end
     def toggle_complete 
-        
+        #binding.pry
         milestone = Milestone.find_by(id: params["id"])
         milestone.complete = params["complete"]
         milestone.save
+
+        render json: milestone
     end
 
     def delete 
