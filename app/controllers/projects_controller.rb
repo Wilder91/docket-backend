@@ -23,10 +23,12 @@ class ProjectsController < ApplicationController
       #binding.pry
       if project.save
         create_from_template(project, params[:template])
+        #binding.pry
         render json: project, include: :milestones
       else
         render json: { errors: project.errors.full_messages }, status: :unprocessable_entity
       end
+      #binding.pry
     end
     
     def update
@@ -85,9 +87,11 @@ class ProjectsController < ApplicationController
           complete: false,
           due_date: project.due_date - m["leadTime"].to_i
         )
+        
       end 
       
       project.kind = template.name
+      #binding.pry
       project.save
     end
   end

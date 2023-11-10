@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_03_180254) do
+ActiveRecord::Schema.define(version: 2023_11_03_181600) do
 
   create_table "milestones", force: :cascade do |t|
     t.string "name"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2023_05_03_180254) do
     t.string "project_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "completion_date"
+    t.text "notes"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -33,6 +35,7 @@ ActiveRecord::Schema.define(version: 2023_05_03_180254) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "completion_date"
   end
 
   create_table "templates", force: :cascade do |t|

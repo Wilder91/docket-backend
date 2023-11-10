@@ -27,6 +27,8 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'rack-mini-profiler', '~> 3.1'
 gem 'appsignal'
 gem 'pry'
+gem 'oauth2'
+gem 'google-id-token'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

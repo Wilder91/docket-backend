@@ -26,6 +26,8 @@ class UsersController < ApplicationController
     end
   end
 
+  
+
   # PUT /users/{id}
   def update
     #binding.pry

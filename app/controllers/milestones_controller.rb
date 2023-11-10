@@ -56,10 +56,37 @@ class MilestonesController < ApplicationController
         render json: milestone
 
     end
+
+    def create_or_update_note
+        @milestone = Milestone.find(params[:id])
+      
+        # Adjust the permitted attributes as needed
+        note_params = params.permit(:notes)
+      
+        # Check if a note already exists for this milestone
+        if @milestone.notes
+          # Update the existing note
+          if @milestone.update(note_params)
+            render json: { status: 'Note updated successfully', notes: @milestone.notes }
+          else
+            render json: { errors: @milestone.errors.full_messages }, status: :unprocessable_entity
+          end
+        else
+          # Create a new note for the milestone
+          @milestone.notes = params[:notes]
+          if @milestone.save
+            render json: { status: 'Note added successfully', notes: @milestone.notes }
+          else
+            render json: { errors: @milestone.errors.full_messages }, status: :unprocessable_entity
+          end
+        end
+      end
+      
     def toggle_complete 
         #binding.pry
         milestone = Milestone.find_by(id: params["id"])
         milestone.complete = params["complete"]
+        milestone.completion_date = params["completion_date"]
         milestone.save
 
         render json: milestone

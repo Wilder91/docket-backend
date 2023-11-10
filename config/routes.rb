@@ -33,6 +33,11 @@ get '/users/:id/milestones' => 'milestones#user_index'
 patch '/milestones/:id/complete' => 'milestones#toggle_complete'
 patch '/milestones/:id' => 'milestones#update'
 post '/milestones' => 'milestones#create'
+delete '/milestones/:id' => 'milestones#delete'
+post '/milestones/:id/notes' => 'milestones#create_or_update_note'
+patch '/milestones/:id/notes' => 'milestones#create_or_update_note'
+
+
 
 # Catch-All Not Found Route
 get '/*a' => 'application#not_found'

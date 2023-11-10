@@ -45,8 +45,8 @@ class TemplatesController < ApplicationController
       render json: template
     end
 
-    def destroy
-        
+    def delete
+       # binding.pry
         template = Template.find_by(id: params[:id])    
         template.destroy
 
