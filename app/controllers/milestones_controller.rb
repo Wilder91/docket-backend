@@ -1,4 +1,5 @@
 class MilestonesController < ApplicationController
+  before_action :authorize_request, except: [:create, :index, :delete, :update, :create_or_update_note, :toggle_complete]
     def show 
         milestone = Milestone.find_by(id: params[:id])
         if milestone 
@@ -9,6 +10,7 @@ class MilestonesController < ApplicationController
     end
 
     def create
+      #binding.pry
         milestone = Milestone.new 
         milestone.name = params[:name]
         milestone.description = params[:description]
@@ -26,7 +28,8 @@ class MilestonesController < ApplicationController
     def index 
 
         milestones = Milestone.all.sort { |a,b| a.due_date <=> b.due_date } 
-        render json: milestones
+        render json: milestones, include: :project
+        #binding.pry
     end
 
     def user_index 
@@ -46,15 +49,35 @@ class MilestonesController < ApplicationController
         end
     end
 
-    def update 
+    def update
+      milestone = Milestone.find_by(id: params[:id])
+    
+      if milestone
+        # Store the milestone attributes before potential changes
+        original_attributes = milestone.attributes
         #binding.pry
-        milestone = Milestone.find_by(id: params[:id])
-        milestone.update(name: params["name"], description: params["description"], due_date: params["due_date"], project_name: params["project_name"])
-        
-        milestone.save
-       
-        render json: milestone
-
+        # Update the milestone attributes only if the parameters are present and non-empty
+        milestone.assign_attributes(
+          name: params["name"].presence || milestone.name,
+          description: params["description"],
+          due_date: params["due_date"].presence || milestone.due_date,
+          project_name: params["project_name"],
+          google_id: params["google_event_id"].presence || milestone.google_id
+        )
+    
+        # Check if any changes have been made
+        if milestone.changed?
+          if milestone.save
+            render json: milestone
+          else
+            render json: { message: "Error saving milestone after changes", errors: milestone.errors }, status: :unprocessable_entity
+          end
+        else
+          render json: { message: "No changes detected" }, status: :unprocessable_entity
+        end
+      else
+        render json: { message: "Milestone not found" }, status: :not_found
+      end
     end
 
     def create_or_update_note

@@ -13,6 +13,7 @@ class User < ApplicationRecord
   attr_accessor :sign_in_source
 
   def self.from_google(google_token)
+   
     validator = GoogleIDToken::Validator.new
 
     begin
@@ -27,7 +28,7 @@ class User < ApplicationRecord
         user.sign_in_source = 'google'
         return user
       else
-        user = User.new(
+        user = User.create(
           email: google_email,
           name: google_name,
           password: 'asjasflk'

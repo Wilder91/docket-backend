@@ -1,11 +1,12 @@
 class TemplatesController < ApplicationController
-
+  before_action :authorize_request, except: [:create, :index, :delete]
     def index 
         templates = Template.all 
         render json: templates
     end
 
     def create
+      #binding.pry
        template_params = {
         name: params[:name],
         user_id: params[:id],

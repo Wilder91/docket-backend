@@ -2,6 +2,7 @@ class AuthenticationController < ApplicationController
   before_action :authorize_request, except: :login
 
   def login
+    #binding.pry
     if params[:google_token].present?
       handle_google_login
     else
@@ -12,11 +13,12 @@ class AuthenticationController < ApplicationController
   private
   
   def handle_google_login
-    #binding.pry
-    google_user = User.from_google(params[:google_token])
-    #binding.pry
+    token = params[:google_token]
+    google_user = User.from_google(token)
+  
     if google_user
-      handle_successful_login(google_user)
+      # Assuming `google_user.token` holds the Google token
+      render json: { token: token }
     else
       handle_unauthorized_error
     end
@@ -33,10 +35,18 @@ class AuthenticationController < ApplicationController
   end
   
   def handle_successful_login(user)
-    token = JsonWebToken.encode(user_id: user.id)
-    time = Time.now + 12.hours.to_i
-  
-    render json: { token: token, exp: time.strftime('%m-%d-%Y %H:%M'), email: user.email }, status: :ok
+    #binding.pry
+    
+    begin
+      token = JsonWebToken.encode(user_id: user.id)
+      time = Time.now + 12.hours.to_i
+    
+      render json: { token: token, exp: time.strftime('%m-%d-%Y %H:%M'), email: user.email }, status: :ok
+    rescue => e
+      render json: { error: 'Token generation failed' }, status: :unprocessable_entity
+      # Optionally, you can log the error for debugging purposes
+      Rails.logger.error("Token generation error: #{e.message}")
+    end
   end
   
   def handle_unauthorized_error
