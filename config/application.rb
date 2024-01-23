@@ -42,7 +42,7 @@ module DueDateApi
         origins 'https://docket-389716.web.app', 'http://localhost:5002'
         resource '*', 
           headers: :any,
-          methods: [:get, :post, :put, :delete, :patch, :options],
+          methods: :any,
           credentials: true,
           expose: ['Content-Type'],
           allow_headers: ['Content-Type']
