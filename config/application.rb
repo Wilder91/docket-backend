@@ -39,10 +39,10 @@ module DueDateApi
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'https://docket-389716.web.app', 'http://localhost:5002'
+        origins 'https://docket-389716.web.app', 'http://localhost:5002', 'http://localhost:3000'
         resource '*', 
           headers: :any,
-          methods: :any,
+          methods: [:get, :post, :put, :delete, :patch, :options],
           credentials: true,
           expose: ['Content-Type'],
           allow_headers: ['Content-Type']
