@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
     before_action :find_project, only: [:show, :update, :delete]
-    before_action :authorize_request, except: [:create, :index, :delete, :update]
+    before_action :authorize_request, except: [:index, :delete, :update]
   
     def show 
       render json: @project, include: :milestones
